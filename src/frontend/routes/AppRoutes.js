@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 // img
-import MoneyImg from "../assets/img/Money.jpg";
-import ImgPerfil from "../assets/img/cthulhu.webp"
-import {FaFacebook, FaInstagram, FaLinkedin} from "react-icons/fa"
+import MoneyImg from "../../assets/img/Money.jpg";
+import ImgPerfil from "../../assets/img/cthulhu.webp";
+import {FaFacebook, FaInstagram, FaLinkedin} from "react-icons/fa";
 // estilo 
-import "../styles/global.css"
+import "../styles/global.css";
 
 function AppRoutes () {
     return (

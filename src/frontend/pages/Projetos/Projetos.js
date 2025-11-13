@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import ImgProjeto from "../../assets/img/projeto.png" 
+import ImgProjeto from "../../../assets/img/projeto.png" 
 import { Link } from "react-router-dom";
 
 function Projeto() {
