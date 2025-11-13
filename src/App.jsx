@@ -7,14 +7,11 @@ import Empresa from './frontend/pages/Empresa/Empresa';
 import NovosProjetos from './frontend/pages/Projetos/NovosProjetos';
 import Projeto from './frontend/pages/Projetos/Projetos';
 
-import CriarProjetos from "./frontend/pages/Projetos/CriarProjetos"; // ou ajuste o caminho
-// rotas
+import CriarProjetos from "./frontend/pages/Projetos/CriarProjetos";
+//rotas
 import AppRoutes from './frontend/routes/AppRoutes';
-
-import './frontend/styles/global.css'; // ou o caminho correto
-// Img
-
-// const styles  = css
+// css global
+import './frontend/styles/global.css';
 
 function App() {
   return (

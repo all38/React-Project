@@ -17,7 +17,6 @@
     rounded-xl 
     bg-white 
     p-3 
-    rounded-none
     shadow-lg 
     outline 
     outline-black/5 
@@ -59,15 +58,13 @@
     text-gray-700 
     bg-gray-300 
     hover:bg-gray-400 
-    rounded-md 
-    hover:bg-gray-200 
+    rounded-md  
     transition-all
 }
 
 .titulo-h1 {
   @apply 
-    text-black 
-    font-bold 
+    text-black  
     italic 
     text-3xl 
     font-bold 
