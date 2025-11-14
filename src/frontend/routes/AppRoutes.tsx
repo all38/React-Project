@@ -9,12 +9,12 @@ import "../styles/global.css";
 function AppRoutes () {
     return (
         <nav className="flex flex-col items-start gap-4 p-4 w-64 bg-white rounded-lg shadow-md y-">
-            <div to="/"><img src={MoneyImg} alt='Money'/></div>
-            <Link to="/" className="botoes"> Home </Link>
-            <Link to="/Projeto" className="botoes"> Projeto </Link>
-            <Link to="/Contato"className="botoes"> Contato </Link>
-            <Link to="/Empresa" className="botoes"> Empresa </Link>
-            <Link to="/NovosProjetos" className="botoes"> Novos Projetos</Link>
+            <Link to="/"><img src={MoneyImg} alt='Money'/></Link>
+            <Link to="/app/Home" className="botoes"> Home </Link>
+            <Link to="/app/Projeto" className="botoes"> Projeto </Link>
+            <Link to="/app/Contato"className="botoes"> Contato </Link>
+            <Link to="/app/Empresa" className="botoes"> Empresa </Link>
+            <Link to="/app/NovosProjetos" className="botoes"> Novos Projetos</Link>
 
             <div className="flex flex-col items-center justify-center w-full mt-4">
                 <h1 className="text-black font-bold text-sm mt-2 font-serif">Perfil</h1>

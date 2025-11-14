@@ -3,10 +3,18 @@ import React, { useEffect, useState } from "react";
 import ImgProjeto from "../../../assets/img/projeto.png" 
 import { Link } from "react-router-dom";
 
+interface Project {
+  id: number;
+  name: string;
+  description: string;
+  cost: string;
+  status: string;
+}
+
 function Projeto() {
 
-  const [projects, setProjects] = useState([]);
-  const [editandoId, setEditandoId] = useState(null);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [editandoId, setEditandoId] = useState<number | null>(null);
   const [editData, setEditData] = useState({
     name: "",
     description: "",
@@ -17,11 +25,11 @@ function Projeto() {
   useEffect(() => {
     fetch("http://localhost:5000/projects")
       .then((res) => res.json())
-      .then((data) => setProjects(data))
+      .then((data: Project[]) => setProjects(data))
       .catch((erro) => console.error("Erro ao buscar projetos:", erro));
   }, []);
 
-  const handleEditClick = (project) => {
+  const handleEditClick = (project: Project) => {
     setEditandoId(project.id);
     setEditData({
       name: project.name,
@@ -31,12 +39,12 @@ function Projeto() {
     });
   };
 
-  const handleEditChange = (e) => {
+  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setEditData({ ...editData, [name]: value });
   };
 
-  const handleEditSave = async (id) => {
+  const handleEditSave = async (id: number) => {
   try {
     const response = await fetch(`http://localhost:5000/projects/${id}`, {
       method: "PUT",
@@ -48,7 +56,7 @@ function Projeto() {
       throw new Error("Erro ao salvar na API");
     }
 
-    const updatedProject = await response.json();
+    const updatedProject: Project = await response.json();
 
     // Atualiza estado com o dado salvo na API
     const projetosAtualizados = projects.map((proj) =>
@@ -66,7 +74,7 @@ function Projeto() {
     setEditandoId(null);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: number) => {
     const confirm = window.confirm("Deseja realmente excluir este projeto?");
     if (!confirm) return;
 
