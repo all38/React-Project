@@ -10,11 +10,11 @@ function AppRoutes () {
     return (
         <nav className="flex flex-col items-start gap-4 p-4 w-64 bg-white rounded-lg shadow-md y-">
             <img src={MoneyImg} alt='Money'/> 
-            <Link to="/app/Home" className="botoes"> Home </Link>
-            <Link to="/app/Projeto" className="botoes"> Projeto </Link>
-            <Link to="/app/Contato"className="botoes"> Contato </Link>
-            <Link to="/app/Empresa" className="botoes"> Empresa </Link>
-            <Link to="/app/NovosProjetos" className="botoes"> Novos Projetos</Link>
+            <Link to="/app/Home" className="botoes"> Lobby </Link>
+            <Link to="/app/Projetos" className="botoes"> Projetos </Link>
+            <Link to="/app/Empresa" className="botoes"> Empresas </Link>
+            <Link to="/app/Equipes" className="botoes"> Equipes </Link>
+
 
             <div className="flex flex-col items-center justify-center w-full mt-4">
                 <h1 className="text-black font-bold text-sm mt-2 font-serif">Perfil</h1>

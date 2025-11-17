@@ -37,8 +37,17 @@ function Login({ onLogin }: LoginProps) {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen containers">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+
+        <div className="flex justify-center mb-4">
+          <img
+            src="/NOSYLLA_SYSTEM.webp"
+            alt="Logo"
+            className="w-42 h-42 rounded-full object-cover"
+          />
+        </div>
+
         <h2 className="text-2xl font-semibold text-center mb-6">Login</h2>
 
         <form onSubmit={handleSubmit}>

@@ -11,7 +11,7 @@ interface Project {
   status: string;
 }
 
-function Projeto() {
+function Projetos() {
 
   const [projects, setProjects] = useState<Project[]>([]);
   const [editandoId, setEditandoId] = useState<number | null>(null);
@@ -174,4 +174,4 @@ function Projeto() {
   );
 }
 
-export default Projeto;
+export default Projetos;

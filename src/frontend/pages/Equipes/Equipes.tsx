@@ -1,13 +1,11 @@
-function Contato () {
+function Equipes () {
 
     return (
-    
         <div className="page-container">
-            <h1>Contato</h1>
+            <h1>Equipes</h1>
         </div>
-
     )
 
 }
 
-export default Contato;
+export default Equipes;
