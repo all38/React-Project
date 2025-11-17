@@ -9,7 +9,7 @@ import "../styles/global.css";
 function AppRoutes () {
     return (
         <nav className="flex flex-col items-start gap-4 p-4 w-64 bg-white rounded-lg shadow-md y-">
-            <Link to="/"><img src={MoneyImg} alt='Money'/></Link>
+            <img src={MoneyImg} alt='Money'/> 
             <Link to="/app/Home" className="botoes"> Home </Link>
             <Link to="/app/Projeto" className="botoes"> Projeto </Link>
             <Link to="/app/Contato"className="botoes"> Contato </Link>

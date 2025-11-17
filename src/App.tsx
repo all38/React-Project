@@ -10,16 +10,15 @@ import AppRoutes from './frontend/routes/AppRoutes.tsx';
 function App() {
   return (
     <div className="containers">
-      {/* Aqui, AppRoutes não precisa ser uma rota. Ele deve estar fora do <Routes>, pois é um layout fixo */}
       <AppRoutes />
       
       {/* Definindo as rotas principais */}
       <Routes>
-        <Route path="home" element={<Home />} />
-        <Route path="projeto" element={<Projeto />} />
-        <Route path="contato" element={<Contato />} />
-        <Route path="empresa" element={<Empresa />} />
-        <Route path="criar-projeto" element={<CriarProjetos />} />
+        <Route path="Home" element={<Home />} />
+        <Route path="Projeto" element={<Projeto />} />
+        <Route path="Contato" element={<Contato />} />
+        <Route path="Empresa" element={<Empresa />} />
+        <Route path="Criar-projeto" element={<CriarProjetos />} />
       </Routes>
     </div>
   );

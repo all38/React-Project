@@ -1,133 +1,133 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const CriarUsuario = () => {
-  const [formData, setFormData] = useState({
-    nome: '',
-    sobrenome: '',
-    apelido: '',
-    email: '',
-    senha: ''
-  });
+function CadastroUsuario() {
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [fotoPerfil, setFotoPerfil] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
 
-  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
-  const handleChange = (e: { target: { name: any; value: any; }; }) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setFotoPerfil(file);
+
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setPreview(url);
+    }
   };
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Validação simples (por exemplo, verificar se todos os campos estão preenchidos)
-    const { nome, sobrenome, apelido, email, senha } = formData;
-    if (!nome || !sobrenome || !apelido || !email || !senha) {
-      setErrorMessage('Todos os campos devem ser preenchidos!');
-      return;
+
+    const formData = new FormData();
+    formData.append("nome", nome);
+    formData.append("email", email);
+    formData.append("senha", senha);
+
+    if (fotoPerfil) {
+      formData.append("foto", fotoPerfil);
     }
 
-    // Aqui você pode adicionar a lógica para enviar os dados do formulário, como uma requisição API
-    console.log('Dados do usuário:', formData);
+    try {
+      const response = await fetch("http://localhost:5000/cadastro", {
+        method: "POST",
+        body: formData, // FORM DATA!
+      });
 
-    // Resetar o formulário após o envio
-    setFormData({
-      nome: '',
-      sobrenome: '',
-      apelido: '',
-      email: '',
-      senha: ''
-    });
-    setErrorMessage('');
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.erro || "Erro ao cadastrar usuário!");
+        return;
+      }
+
+      alert("Usuário cadastrado com sucesso!");
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao cadastrar usuário!");
+    }
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 border border-gray-300 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-semibold text-center mb-6">Criar Usuário</h2>
-      
-      {errorMessage && <p className="text-red-500 text-center mb-4">{errorMessage}</p>}
-      
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="nome" className="block text-sm font-medium text-gray-700">Nome</label>
-          <input
-            type="text"
-            id="nome"
-            name="nome"
-            value={formData.nome}
-            onChange={handleChange}
-            placeholder="Seu nome"
-            required
-            className="mt-1 px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+        <h2 className="text-2xl font-semibold text-center mb-6">
+          Cadastro de Usuário
+        </h2>
 
-        <div className="mb-4">
-          <label htmlFor="sobrenome" className="block text-sm font-medium text-gray-700">Sobrenome</label>
-          <input
-            type="text"
-            id="sobrenome"
-            name="sobrenome"
-            value={formData.sobrenome}
-            onChange={handleChange}
-            placeholder="Seu sobrenome"
-            required
-            className="mt-1 px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+        <form onSubmit={handleSubmit}>
 
-        <div className="mb-4">
-          <label htmlFor="apelido" className="block text-sm font-medium text-gray-700">Apelido</label>
-          <input
-            type="text"
-            id="apelido"
-            name="apelido"
-            value={formData.apelido}
-            onChange={handleChange}
-            placeholder="Seu apelido"
-            required
-            className="mt-1 px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700">Foto de Perfil</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="mt-2 block w-full"
+            />
 
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Seu email"
-            required
-            className="mt-1 px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+            {/* Pré-visualização */}
+            {preview && (
+              <img
+                src={preview}
+                alt="Prévia da foto"
+                className="mt-4 w-32 h-32 object-cover rounded-full mx-auto shadow"
+              />
+            )}
+          </div>
 
-        <div className="mb-6">
-          <label htmlFor="senha" className="block text-sm font-medium text-gray-700">Senha</label>
-          <input
-            type="password"
-            id="senha"
-            name="senha"
-            value={formData.senha}
-            onChange={handleChange}
-            placeholder="Sua senha"
-            required
-            className="mt-1 px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">Nome</label>
+            <input
+              type="text"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">Senha</label>
+            <input
+              type="password"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md"
+              required
+            />
+          </div>
+
+          <button type="submit" className="w-full py-2 bg-green-600 text-white rounded-md">
+            Cadastrar
+          </button>
+        </form>
 
         <button
-          type="submit"
-          className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="mt-4 w-full py-2 bg-gray-300 text-gray-700 rounded-md"
+          onClick={() => navigate("/")}
         >
-          Criar Conta
+          Voltar para Login
         </button>
-      </form>
+      </div>
     </div>
   );
-};
+}
 
-export default CriarUsuario;
+export default CadastroUsuario;
