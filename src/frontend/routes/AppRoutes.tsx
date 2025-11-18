@@ -1,21 +1,17 @@
 import { Link } from "react-router-dom";
-// img
-import MoneyImg from "../../assets/img/Money.jpg";
-import ImgPerfil from "../../assets/img/cthulhu.webp";
 import {FaFacebook, FaInstagram, FaLinkedin} from "react-icons/fa";
 // estilo 
 import "../styles/global.css";
 
 function AppRoutes () {
     return (
-        <nav className="flex flex-col items-start gap-4 p-4 w-64 bg-white rounded-lg shadow-md y-">
-            <img src={MoneyImg} alt='Money'/> 
+        <nav className="flex flex-col items-start gap-4 p-4 bg-white rounded-lg shadow-md">
+            {/* <img src={MoneyImg} alt='Money'/>  */}
             <Link to="/app/Home" className="botoes"> Lobby </Link>
             <Link to="/app/Projetos" className="botoes"> Projetos </Link>
-            <Link to="/app/Empresa" className="botoes"> Empresas </Link>
             <Link to="/app/Equipes" className="botoes"> Equipes </Link>
 
-
+            {/* 
             <div className="flex flex-col items-center justify-center w-full mt-4">
                 <h1 className="text-black font-bold text-sm mt-2 font-serif">Perfil</h1>
                 <img 
@@ -24,7 +20,7 @@ function AppRoutes () {
                     className="w-20 h-20 rounded-full shadow-md object-cover"
                 />
                 <h1 className="text-black font-bold text-sm mt-2 font-serif">Allyson</h1>
-            </div>
+            </div> */}
 
             <div className="flex justify-center gap-4 mt-auto w-full px-4">
                 <a href="https://www.facebook.com/share/16HPd6YiTM/" target="_blank" rel="noopener noreferrer">

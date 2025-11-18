@@ -8,7 +8,37 @@ CREATE TABLE Usuarios (
     Data_Criacao DATETIME DEFAULT GETDATE()
 );
 
+CREATE TABLE Permissoes (
+	ID_Permisao INT IDENTITY(1,1) PRIMARY KEY,
+	Nome VARCHAR(30) NOT NULL,
+	Descricao VARCHAR(MAX) NOT NULL
+);
+
+CREATE TABLE Equipes (
+	ID_Equipe INT IDENTITY(1,1) PRIMARY KEY,
+	Nome_Equipe VARCHAR(50) NOT NULL,
+	Descricao_Equipe VARCHAR (MAX) NOT NULL
+);
+
+CREATE TABLE Equipes_Usuarios (
+	ID_Equipe_Usuario INT IDENTITY(1,1) PRIMARY KEY,
+    ID_Equipe INT NOT NULL,
+	ID_Usuario INT NOT NULL,
+	Permissao_Usuario INT NOT NULL,
+	FOREIGN KEY (ID_Usuario) REFERENCES Usuarios(ID_Usuario),
+	FOREIGN KEY (ID_Equipe) REFERENCES Equipes(ID_Equipe),
+	FOREIGN KEY (Permissao_Usuario) REFERENCES Permissoes(ID_Permisao)
+);
+
 EXEC('
+INSERT INTO Permissoes (Nome, Descricao) VALUES
+(''CONVIDADO'',''Usado para dar certo acesso a aplicação''),
+(''MEMBRO'',''Usuário que pertence a uma equipe e que tem mais acessos que o convidado, na aplicação e nas equipes ao qual pertence''),
+(''GESTOR'',''Usuário ativo, que pertence a uma equipe e que tem mais acessos que o MEMBRO, responsavel pela equipe''),
+(''MASTER'',''Usuário com acesso total a aplicação e gestão completa'')
+');
+
+EXEC(' 
 CREATE PROCEDURE BACKEND_Cadastro_Usuario (
     @Nome VARCHAR(100),
     @Email VARCHAR(150),
@@ -30,7 +60,24 @@ BEGIN
     DECLARE @Hash VARBINARY(256) =
         HASHBYTES(''SHA2_256'', @Senha + CONVERT(VARCHAR(1000), @Salt));
 
-    INSERT INTO Usuarios (Nome, Email, Senha_Hash, Senha_Salt, Foto_Perfil)
+	IF NOT EXISTS(SELECT 1 FROM Usuarios)
+	BEGIN
+		-- CRIA A PRIMEIRA EQUIPE SENDO A ADM
+		INSERT INTO Equipes (Nome_Equipe,Descricao_Equipe)
+		VALUES (''Equipe ADM'', ''Responsavel pela orquestraçâo dos projetos, segurança, gerenciamento de equipes'')
+		-- INSERI O USUARIO
+		INSERT INTO Usuarios (Nome, Email, Senha_Hash, Senha_Salt, Foto_Perfil)
+		VALUES (@Nome, @Email, @Hash, @Salt, @Foto_Perfil);
+		-- INSTANCIA O USUARIO MASTER
+		DECLARE @ID_Usuario INT
+		SELECT @ID_Usuario = ID_Usuario FROM Usuarios
+		-- INSTANCIA 
+		INSERT INTO Equipes_Usuarios (ID_Equipe, ID_Usuario, Permissao_Usuario)
+        VALUES (1, @ID_Usuario, 4);
+	END
+	ELSE
+    
+	INSERT INTO Usuarios (Nome, Email, Senha_Hash, Senha_Salt, Foto_Perfil)
     VALUES (@Nome, @Email, @Hash, @Salt, @Foto_Perfil);
 END
 ');
@@ -48,7 +95,7 @@ BEGIN
     -- 1️⃣ Busca o usuário
     IF NOT EXISTS (SELECT 1 FROM Usuarios WHERE Email = @Email)
     BEGIN
-        RAISERROR('Usuário não encontrado!', 16, 1);
+        RAISERROR(''Usuário não encontrado!'', 16, 1);
         RETURN;
     END
 
@@ -64,21 +111,13 @@ BEGIN
     WHERE Email = @Email;
 
     -- 3️⃣ Recria o hash com a senha enviada
-    SET @Hash_Teste = HASHBYTES('SHA2_256', @Senha + CONVERT(VARCHAR(1000), @Salt));
+    SET @Hash_Teste = HASHBYTES(''SHA2_256'', @Senha + CONVERT(VARCHAR(1000), @Salt));
 
     -- 4️⃣ Valida o hash
     IF @Hash_Teste != @Hash_Banco
     BEGIN
-        RAISERROR('Senha incorreta!', 16, 1);
+        RAISERROR(''Senha incorreta!'', 16, 1);
         RETURN;
     END
 
-    -- 5️⃣ Sucesso — você pode retornar mais dados se quiser
-    SELECT 
-        ID_Usuario,
-        Nome,
-        Email,
-        Foto_Perfil
-    FROM Usuarios
-    WHERE Email = @Email;
 END');

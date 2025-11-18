@@ -20,10 +20,8 @@ function Login({ onLogin }: LoginProps) {
         body: JSON.stringify({ email, senha }),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        alert(data.erro || "Usuário ou senha inválidos!");
+        alert("Usuário ou senha inválidos!");
         return;
       }
 
