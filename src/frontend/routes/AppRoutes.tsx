@@ -11,17 +11,6 @@ function AppRoutes () {
             <Link to="/app/Projetos" className="botoes"> Projetos </Link>
             <Link to="/app/Equipes" className="botoes"> Equipes </Link>
 
-            {/* 
-            <div className="flex flex-col items-center justify-center w-full mt-4">
-                <h1 className="text-black font-bold text-sm mt-2 font-serif">Perfil</h1>
-                <img 
-                    src={ImgPerfil} 
-                    alt="perfil" 
-                    className="w-20 h-20 rounded-full shadow-md object-cover"
-                />
-                <h1 className="text-black font-bold text-sm mt-2 font-serif">Allyson</h1>
-            </div> */}
-
             <div className="flex justify-center gap-4 mt-auto w-full px-4">
                 <a href="https://www.facebook.com/share/16HPd6YiTM/" target="_blank" rel="noopener noreferrer">
                     <FaFacebook className="text-xl cursor-pointer hover:text-blue-600" />

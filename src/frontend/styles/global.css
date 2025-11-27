@@ -70,28 +70,3 @@
     font-bold 
     mb-6
 }
-
-/* .botoes-home-acoes {
-  @apply
-    mt-3 
-    border 
-    border-gray-400 
-    rounded-lg 
-    p-4 
-    w-fit 
-    flex 
-    items-center 
-    gap-4 
-    bg-white 
-    shadow-sm 
-    dark:bg-slate-800
-} */
-
-/* body {
-  background: var(--background);
-  color: var(--foreground);
-}
-
-code, pre {
-  font-family: monospace;
-} */

@@ -8,7 +8,6 @@ function Projetos() {
     <div>
       <h2>Projetos</h2>
     </div>
-  
   )
 }
 
