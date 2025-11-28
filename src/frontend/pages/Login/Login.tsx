@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Modal, useMostrarSenha } from "../../components/components.tsx";
+import { FaEyeSlash, FaEye } from "react-icons/fa";
 
 interface LoginProps {
   onLogin: () => void;
@@ -9,6 +11,12 @@ function Login({ onLogin }: LoginProps) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const navigate = useNavigate();
+
+  // mostrar senha 
+  const { mostrarSenha, toggleSenha, inputType } = useMostrarSenha();
+
+  // modal
+  const [modal, setModal] = useState<{ msg: string; tipo: "sucesso" | "erro" } | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,22 +29,35 @@ function Login({ onLogin }: LoginProps) {
       });
 
       if (!response.ok) {
-        alert("Usuário ou senha inválidos!");
+        setModal({ msg: "Usuário ou senha inválidos!", tipo: "erro" });
         return;
       }
 
-      alert("Login realizado com sucesso!");
-      onLogin();
-      navigate("/app/Home");
+      setModal({ msg: "Login realizado com sucesso!", tipo: "sucesso" });
     } catch (err) {
       console.error(err);
-      alert("Erro ao realizar login!");
+      setModal({ msg: "Erro ao realizar login!", tipo: "erro" });
     }
   };
 
+  // AUTO-FECHAMENTO DO MODAL E REDIRECIONAMENTO
+  useEffect(() => {
+    if (modal) {
+      const timer = setTimeout(() => {
+        if (modal.tipo === "sucesso") {
+          onLogin();
+          navigate("/app/Home");
+        }
+        setModal(null);
+      }, 500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [modal, navigate, onLogin]);
+
   return (
-    <div className="flex justify-center items-center min-h-screen containers">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+    <div className="Pagina-Login">
+      <div className="Login-Painel">
 
         <div className="flex justify-center mb-4">
           <img
@@ -46,31 +67,39 @@ function Login({ onLogin }: LoginProps) {
           />
         </div>
 
-        <h2 className="text-2xl font-semibold text-center mb-6">Login</h2>
+        <h2 className="Titulo">Login</h2>
 
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Email</label>
+            <label className="Texto">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Digite seu email"
-              className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="mt-2 font-semibold block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
               required
             />
           </div>
 
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700">Senha</label>
+          <div className="mb-6 relative">
+            <label className="Texto">Senha</label>
             <input
-              type="password"
+              type={inputType}
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               placeholder="Digite sua senha"
-              className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="mt-2 block w-full px-4 py-2 pr-12 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
               required
             />
+
+            <button
+              type="button"
+              onClick={toggleSenha}
+              className="absolute right-3 top-[46px] text-gray-600"
+            >
+              {mostrarSenha ? <FaEyeSlash size={25} /> : <FaEye size={25} />}
+            </button>
           </div>
 
           <button
@@ -88,6 +117,15 @@ function Login({ onLogin }: LoginProps) {
           Criar Conta
         </button>
       </div>
+
+      {/* MODAL */}
+      {modal && (
+        <Modal
+          mensagem={modal.msg}
+          tipo={modal.tipo}
+          fechar={() => setModal(null)}
+        />
+      )}
     </div>
   );
 }

@@ -5,13 +5,12 @@ import "../styles/global.css";
 
 function AppRoutes () {
     return (
-        <nav className="flex flex-col items-start gap-4 p-4 bg-white rounded-lg shadow-md">
-            {/* <img src={MoneyImg} alt='Money'/>  */}
-            <Link to="/app/Home" className="botoes"> Lobby </Link>
-            <Link to="/app/Projetos" className="botoes"> Projetos </Link>
-            <Link to="/app/Equipes" className="botoes"> Equipes </Link>
+        <nav className="flex flex-col items-start gap-4 p-4 bg-white rounded-lg shadow-md border">
+            <Link to="/app/Home" className="Botoes"> Lobby </Link>
+            <Link to="/app/Projetos" className="Botoes"> Projetos </Link>
+            <Link to="/app/Equipes" className="Botoes"> Equipes </Link>
 
-            <div className="flex justify-center gap-4 mt-auto w-full px-4">
+            <div className="flex justify-center gap-5 mt-auto w-full px-4">
                 <a href="https://www.facebook.com/share/16HPd6YiTM/" target="_blank" rel="noopener noreferrer">
                     <FaFacebook className="text-xl cursor-pointer hover:text-blue-600" />
                 </a>

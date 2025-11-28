@@ -3,51 +3,70 @@
 @tailwind utilities;
 
 :root {
-  --background: #a3a3a3;
-  --foreground: #171717;
+  --backgroundColor:   #0b8185;
+  /* Cores */
+  --primaryColor:      #30261c;
+  --secondaryColor:    #403831;
+  --tertiaryColor:     #36544f;
+  --quaternaryColor:   #1f5f61;
+  --quinaryColor:      #0b8185;
+
+  /* Versões opcionais */
+  --primaryColor-light:    #b83a2d;
+  --primaryColor-dark:     #64170f;
+  --secondaryColor-light:  #7bab85;
+  --secondaryColor-dark:   #466953;
+}
+/* template de cores
+  #d0d0d0 branco 
+*/
+.Pagina-Login {
+  @apply
+    flex 
+    justify-center 
+    items-center 
+    min-h-screen;
+    background-color: var(--backgroundColor);
 }
 
-.containers {
+.Login-Painel {
+  @apply
+    p-8 
+    rounded-lg 
+    shadow-lg 
+    w-96;
+    background-color: var(--tertiaryColor);
+}
+
+.App {
+  @apply
+    flex
+    flex-row
+    min-h-screen
+    gap-3
+    p-3
+    ;
+    background-color: var(--backgroundColor);
+}
+
+/* barra lateral e componentes */
+.Barra-Lateral {
   @apply 
     flex 
     flex-row 
     min-h-screen 
     mx-auto 
     gap-3
-    rounded-xl 
     bg-white 
     p-3 
     shadow-lg 
     outline 
-    outline-black/5 
-    dark:bg-slate-800 
     dark:shadow-none 
-    dark:-outline-offset-1 
-    dark:outline-white/10;
-    background-color: var(--background);
+    dark:-outline-offset-1;
+    background-color: var(--backgroundColor);
 }
 
-.page-container {
-  @apply 
-    flex 
-    flex-col 
-    /* items-center 
-    justify-center  */
-    /* min-h-screen  */
-    px-4 
-    py-8 
-    bg-white 
-    text-gray-800 
-    dark:bg-slate-800 
-    dark:shadow-none 
-    mr-px
-    border-2
-    w-full
-    h-full;
-    border-radius: 10px;
-}
-
-.botoes {
+.Botoes {
   @apply 
     w-full 
     px-4 
@@ -62,6 +81,39 @@
     transition-all
 }
 
+.Container-Paginas {
+  @apply 
+    flex 
+    flex-col 
+    px-4 
+    py-8 
+    bg-white
+    dark:shadow-none 
+    mr-px
+    border-2
+    w-full
+    h-full;
+    border-radius: 10px;
+}
+
+/* componentes menores  */
+.Texto {
+  @apply
+    text-xl 
+    text-white
+    font-semibold
+}
+
+.Titulo {
+  @apply
+    text-2xl 
+    font-semibold 
+    text-center 
+    mb-6 
+    text-white
+}
+
+/* 
 .titulo-h1 {
   @apply 
     text-black  
@@ -69,4 +121,5 @@
     text-3xl 
     font-bold 
     mb-6
-}
+} 
+*/

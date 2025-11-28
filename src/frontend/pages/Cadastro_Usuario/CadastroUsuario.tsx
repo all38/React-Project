@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMostrarSenha } from "../../components/components.tsx";
+import { FaEyeSlash, FaEye } from "react-icons/fa";
 
 function CadastroUsuario() {
   const [nome, setNome] = useState("");
@@ -9,6 +11,8 @@ function CadastroUsuario() {
   const [preview, setPreview] = useState<string | null>(null);
 
   const navigate = useNavigate();
+
+  const { mostrarSenha, toggleSenha, inputType } = useMostrarSenha();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
@@ -54,21 +58,22 @@ function CadastroUsuario() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl font-semibold text-center mb-6">
+    <div className="Pagina-Login">
+      <div className="Login-Painel">
+
+        <h2 className="Titulo">
           Cadastro de Usuário
         </h2>
 
         <form onSubmit={handleSubmit}>
 
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700">Foto de Perfil</label>
+            <label className="Texto">Foto de Perfil</label>
             <input
               type="file"
               accept="image/*"
               onChange={handleFileChange}
-              className="mt-2 block w-full"
+              className="mt-2 block w-full text-white cursor-pointer"
             />
 
             {/* Pré-visualização */}
@@ -82,7 +87,7 @@ function CadastroUsuario() {
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Nome</label>
+            <label className="Texto">Nome</label>
             <input
               type="text"
               value={nome}
@@ -93,7 +98,7 @@ function CadastroUsuario() {
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Email</label>
+            <label className="Texto">Email</label>
             <input
               type="email"
               value={email}
@@ -103,16 +108,26 @@ function CadastroUsuario() {
             />
           </div>
 
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Senha</label>
+          <div className="mb-4 relative">
+            <label className="Texto">Senha</label>
             <input
-              type="password"
+              type={inputType}
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
-              className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md"
+              placeholder="Digite uma senha"
+              className="mt-2 block w-full px-4 py-2 pr-12 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
               required
             />
-          </div>
+
+            {/* Botão para mostrar/ocultar senha */}
+            <button
+              type="button"
+              onClick={toggleSenha}
+              className="absolute right-3 top-[46px] text-gray-600"
+            >
+              {mostrarSenha ? <FaEyeSlash size={25} /> : <FaEye size={25} />}
+            </button>
+        </div>
 
           <button type="submit" className="w-full py-2 bg-green-600 text-white rounded-md">
             Cadastrar

@@ -1,7 +1,7 @@
 function Home () {
 
     return (
-        <div className="page-container">
+        <div className="Container-Paginas">
             <h1 className="titulo-h1"> Bem-vindo ao meu Projeto usando React, Tailwind, API flask </h1>
             <p className="">
                 Este projeto utiliza Tailwind CSS em conjunto com React Router!

@@ -6,7 +6,7 @@ import Equipes from './frontend/pages/Equipes/Equipes.tsx';
 
 function App() {
   return (
-    <div className="containers">
+    <div className="App">
       <AppRoutes />
       
       {/* Definindo as rotas principais */}

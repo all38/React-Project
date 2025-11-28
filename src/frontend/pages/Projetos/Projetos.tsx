@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function Projetos() {
 
   return (
-    <div>
+    <div className="Page-Container">
       <h2>Projetos</h2>
     </div>
   )

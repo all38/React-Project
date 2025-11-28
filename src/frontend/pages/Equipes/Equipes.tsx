@@ -1,7 +1,7 @@
 function Equipes () {
 
     return (
-        <div className="page-container">
+        <div className="Container-Paginas">
             <h1>Equipes</h1>
         </div>
     )
