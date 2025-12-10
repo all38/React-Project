@@ -67,11 +67,11 @@ function Login({ onLogin }: LoginProps) {
           />
         </div>
 
-        <h2 className="Titulo">Login</h2>
+        <h2 className="Titulo-Login">Login</h2>
 
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="Texto">Email</label>
+            <label className="Texto-Login">Email</label>
             <input
               type="email"
               value={email}
@@ -83,7 +83,7 @@ function Login({ onLogin }: LoginProps) {
           </div>
 
           <div className="mb-6 relative">
-            <label className="Texto">Senha</label>
+            <label className="Texto-Login">Senha</label>
             <input
               type={inputType}
               value={senha}

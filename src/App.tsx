@@ -8,7 +8,6 @@ function App() {
   return (
     <div className="App">
       <AppRoutes />
-      
       {/* Definindo as rotas principais */}
       <Routes>
         <Route path="Home" element={<Home />} />
