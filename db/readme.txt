@@ -1,0 +1,1 @@
+Aqui está tudo vinculado ao banco de dados
